@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wg-green: #1A8452;
+  --wg-orange: #E67E22;
+  --wg-dark: #114C32;
+}
+
+body {
+  @apply text-gray-800 bg-gray-50;
+}
