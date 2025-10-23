@@ -46,11 +46,13 @@ export type Invoice = {
 
 export type Metric = {
   id: string;
-  project_id: string | null;
+  project_id: string;
   metric_name: string;
   value: number;
-  uploaded_at: string | null;
+  uploaded_at: string;
 };
+
+export type MetricWithProject = Metric & { projects: Project };
 
 export type Task = {
   id: string;
@@ -194,7 +196,7 @@ export async function getProjectMetrics(projectId: string): Promise<Metric[]> {
 /**
  * Get all metrics for the current client
  */
-export async function getClientMetrics(): Promise<Metric[]> {
+export async function getClientMetrics(): Promise<MetricWithProject[]> {
   const client = await getClientProfile();
   if (!client) return [];
 
@@ -209,7 +211,7 @@ export async function getClientMetrics(): Promise<Metric[]> {
     return [];
   }
 
-  return data as Metric[];
+  return data as MetricWithProject[];
 }
 
 /**

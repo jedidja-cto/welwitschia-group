@@ -164,22 +164,3 @@ export async function uploadProjectAsset(
   return data;
 }
 
-/**
- * Delete a file from storage
- */
-export async function deleteFile(
-  path: string,
-  bucket: string = ASSETS_BUCKET
-) {
-  const { error } = await supabaseClient
-    .storage
-    .from(bucket)
-    .remove([path]);
-
-  if (error) {
-    console.error('Error deleting file:', error);
-    throw new Error('Failed to delete file');
-  }
-
-  return true;
-}

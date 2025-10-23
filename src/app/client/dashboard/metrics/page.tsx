@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { getClientMetrics } from '@/lib/clientApi';
-import type { Metric } from '@/lib/clientApi';
+import type { MetricWithProject } from '@/lib/clientApi';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell
 } from 'recharts';
 
 export default function MetricsPage() {
-  const [metrics, setMetrics] = useState<Metric[]>([]);
+  const [metrics, setMetrics] = useState<MetricWithProject[]>([]);
   const [loading, setLoading] = useState(true);
   const [groupedMetrics, setGroupedMetrics] = useState<any>({});
   const [chartType, setChartType] = useState<'bar' | 'pie'>('bar');
@@ -143,7 +143,7 @@ export default function MetricsPage() {
                       cx="50%"
                       cy="50%"
                       labelLine={true}
-                      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                      label={({ name, percent }: { name: string; percent: number }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                       outerRadius={100}
                       fill="#8884d8"
                       dataKey="value"
@@ -152,7 +152,7 @@ export default function MetricsPage() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value) => [`${value}`, 'Value']} />
+                    <Tooltip formatter={(value: number) => [`${value}`, 'Value']} />
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
@@ -194,7 +194,7 @@ export default function MetricsPage() {
                           {metric.value}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {metric.project_title || `Project #${metric.project_id?.substring(0, 8)}`}
+                          {metric.projects?.title || `Project #${metric.project_id?.substring(0, 8)}`}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {formatDate(metric.uploaded_at)}
