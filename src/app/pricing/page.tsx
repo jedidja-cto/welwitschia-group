@@ -1,80 +1,72 @@
 import React from 'react';
-import MainLayout from '@/components/layout/MainLayout';
-import SectionTitle from '@/components/ui/SectionTitle';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { PageHero } from '@/components/sections/PageHero';
+import Navbar from '@/components/layout/MainNavbar';
+import Footer from '@/components/layout/Footer';
+import { Button } from '@/components/ui/Button';
+import PricingCalculator from '@/components/pricing/PricingCalculator';
 
 export default function PricingPage() {
   return (
-    <MainLayout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <SectionTitle
-          title="Pricing"
-          subtitle="Transparent plans designed for SME growth"
-          align="center"
+    <div className="bg-white min-h-screen flex flex-col">
+      <Navbar />
+      <main id="main-content" className="flex-grow">
+        <PageHero
+          title="Value-Based Architecture"
+          subtitle="Transparent, predictable pricing for engineering your market advantage."
+          variant="glass"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          {/* Starter Plan */}
-          <Card variant="elevated" className="text-center">
-            <h3 className="text-xl font-semibold mb-2">Starter</h3>
-            <p className="text-gray-600 mb-4">
-              For early-stage businesses building digital foundations.
-            </p>
-            <ul className="text-gray-600 space-y-2 mb-6">
-              <li>Website or landing page</li>
-              <li>Basic analytics setup</li>
-              <li>1 month support</li>
-            </ul>
-            <div className="text-2xl font-bold">N$4,500+</div>
-            <div className="mt-6">
-              <Button href="/contact">Get Started</Button>
+        <div className="container-wide py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+            {/* Starter Package */}
+            <div className="premium-card flex flex-col">
+              <span className="text-xs font-mono text-wg-green uppercase tracking-widest font-bold mb-4">Foundation</span>
+              <h3 className="text-3xl font-space mb-2">Starter</h3>
+              <p className="text-brand-black/60 mb-8">For SMEs building their first production-grade digital assets.</p>
+              <div className="mt-auto">
+                <div className="text-4xl font-space mb-1">N$12,000+</div>
+                <p className="text-xs text-brand-black/40 font-mono mb-8">ONE-TIME DEPLOYMENT</p>
+                <Button href="#calculator" variant="outline" className="w-full">Initialize</Button>
+              </div>
             </div>
-          </Card>
 
-          {/* Growth Plan */}
-          <Card variant="elevated" className="text-center">
-            <h3 className="text-xl font-semibold mb-2">Growth</h3>
-            <p className="text-gray-600 mb-4">
-              For SMEs needing data workflows and automation.
-            </p>
-            <ul className="text-gray-600 space-y-2 mb-6">
-              <li>Custom web app or dashboard</li>
-              <li>Data integrations & reporting</li>
-              <li>3 months support</li>
-            </ul>
-            <div className="text-2xl font-bold">N$14,000+</div>
-            <div className="mt-6">
-              <Button href="/contact">Talk to sales</Button>
+            {/* Growth Package */}
+            <div className="premium-card flex flex-col border-wg-green/30 bg-wg-green/5">
+              <span className="text-xs font-mono text-wg-orange uppercase tracking-widest font-bold mb-4">Momentum</span>
+              <h3 className="text-3xl font-space mb-2">Growth</h3>
+              <p className="text-brand-black/60 mb-8">Advanced systems for businesses scaling their technical operations.</p>
+              <div className="mt-auto">
+                <div className="text-4xl font-space mb-1">N$30,000+</div>
+                <p className="text-xs text-brand-black/40 font-mono mb-8">ONE-TIME DEPLOYMENT</p>
+                <Button href="#calculator" variant="primary" className="w-full">Scale Now</Button>
+              </div>
             </div>
-          </Card>
 
-          {/* Enterprise Plan */}
-          <Card variant="elevated" className="text-center">
-            <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-            <p className="text-gray-600 mb-4">
-              For established teams scaling operations with capital readiness.
-            </p>
-            <ul className="text-gray-600 space-y-2 mb-6">
-              <li>Advanced analytics & AI</li>
-              <li>Multi-system integrations</li>
-              <li>Dedicated support</li>
-            </ul>
-            <div className="text-2xl font-bold">Custom</div>
-            <div className="mt-6">
-              <Button href="/contact" variant="outline">Book a consult</Button>
+            {/* Enterprise Package */}
+            <div className="premium-card flex flex-col bg-wg-dark text-white border-none">
+              <span className="text-xs font-mono text-white/40 uppercase tracking-widest font-bold mb-4">Authority</span>
+              <h3 className="text-3xl font-space mb-2">Enterprise</h3>
+              <p className="text-white/60 mb-8">Bespoke technical architecture and dedicated site reliability engineering.</p>
+              <div className="mt-auto">
+                <div className="text-4xl font-space mb-1 text-wg-orange">Custom</div>
+                <p className="text-xs text-white/30 font-mono mb-8">ANNUAL AGREEMENT</p>
+                <Button href="/contact" variant="primary" className="w-full bg-white text-wg-dark hover:bg-gray-100">Consult</Button>
+              </div>
             </div>
-          </Card>
+          </div>
+
+          <div id="calculator" className="py-24 border-t border-gray-100">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-space mb-4">Precision Estimator</h2>
+              <p className="text-xl text-brand-black/60">Select your required technical modules for an instant scope estimate.</p>
+            </div>
+            <div className="premium-card p-0 overflow-hidden bg-gray-50/50">
+              <PricingCalculator />
+            </div>
+          </div>
         </div>
-
-        {/* Notes */}
-        <div className="mt-12 max-w-3xl mx-auto text-center text-gray-600">
-          <p>
-            Final pricing depends on scope and timeline. We’ll provide a clear proposal
-            after a short discovery call.
-          </p>
-        </div>
-      </div>
-    </MainLayout>
+      </main>
+      <Footer />
+    </div>
   );
 }

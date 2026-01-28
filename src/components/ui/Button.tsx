@@ -24,22 +24,22 @@ export const Button = ({
   disabled = false,
   type = 'button',
 }: ButtonProps) => {
-  const baseStyles = 'inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
-  
+  const baseStyles = 'inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 ease-out active:scale-95 disabled:opacity-50 disabled:pointer-events-none';
+
   const variants = {
-    primary: 'bg-wg-green text-white hover:bg-wg-dark hover:shadow-md focus-visible:ring-wg-green',
-    secondary: 'bg-wg-orange text-white hover:bg-wg-orange/80 hover:shadow-md focus-visible:ring-wg-orange',
-    outline: 'border-2 border-wg-green text-wg-green hover:bg-wg-green/10 hover:shadow-sm focus-visible:ring-wg-green',
+    primary: 'bg-wg-green text-white hover:bg-wg-dark hover:shadow-lg hover:shadow-wg-green/20 focus-visible:ring-wg-green',
+    secondary: 'bg-white border border-gray-200 text-brand-black hover:border-gray-300 hover:bg-gray-50 focus-visible:ring-gray-400',
+    outline: 'border-2 border-wg-green text-wg-green hover:bg-wg-green hover:text-white focus-visible:ring-wg-green',
   };
-  
+
   const sizes = {
-    sm: 'h-9 px-4 text-sm',
-    md: 'h-11 px-6 py-2.5',
-    lg: 'h-12 px-8 py-3 text-lg',
+    sm: 'h-10 px-6 text-sm',
+    md: 'h-12 px-8 py-3',
+    lg: 'h-14 px-10 py-4 text-lg',
   };
-  
+
   const buttonClasses = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
-  
+
   if (href) {
     return (
       <Link href={href} className={buttonClasses}>
@@ -47,7 +47,7 @@ export const Button = ({
       </Link>
     );
   }
-  
+
   return (
     <button
       type={type}

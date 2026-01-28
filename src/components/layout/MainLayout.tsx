@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import Navbar from './Navbar';
+import CookieConsent from './CookieConsent';
+import MainNavbar from './MainNavbar';
 import Footer from './Footer';
 
 type MainLayoutProps = {
@@ -11,10 +12,11 @@ type MainLayoutProps = {
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
+  <CookieConsent />
+  <MainNavbar />
+  <main id="main-content" className="flex-grow">{children}</main>
+  <Footer />
+</div>
   );
 };
 

@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import MainLayout from '@/components/layout/MainLayout';
-import SectionTitle from '@/components/ui/SectionTitle';
+import { PageHero } from '@/components/sections/PageHero';
+import Navbar from '@/components/layout/MainNavbar';
+import Footer from '@/components/layout/Footer';
 import FormField from '@/components/ui/FormField';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import { contactFormSchema, type ContactFormValues } from '@/lib/schemas';
 
 export default function ContactPage() {
@@ -63,87 +64,106 @@ export default function ContactPage() {
   };
 
   return (
-    <MainLayout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <SectionTitle
-          title="Contact Us"
-          subtitle="Tell us about your business and goals"
-          align="center"
+    <div className="bg-white min-h-screen flex flex-col">
+      <Navbar />
+      <main id="main-content" className="flex-grow">
+        <PageHero
+          title="Start the Dialogue"
+          subtitle="Ready to engineer your business's technical leverage? Tell us about your project intent."
+          variant="dark"
         />
 
-        <div className="max-w-2xl mx-auto mt-8">
-          <form onSubmit={onSubmit} className="bg-white rounded-lg shadow-md p-6">
-            <FormField
-              label="Name"
-              name="name"
-              placeholder="Your full name"
-              required
-              value={values.name}
-              onChange={handleChange}
-              error={errors.name}
-            />
+        <div className="container-wide py-24">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+              <div className="lg:col-span-2">
+                <form onSubmit={onSubmit} className="premium-card bg-gray-50/30 border-none p-12 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <FormField
+                      label="Full Name"
+                      name="name"
+                      placeholder="e.g. John Doe"
+                      required
+                      value={values.name}
+                      onChange={handleChange}
+                      error={errors.name}
+                    />
+                    <FormField
+                      label="Business Email"
+                      name="email"
+                      type="email"
+                      placeholder="e.g. john@company.com"
+                      required
+                      value={values.email}
+                      onChange={handleChange}
+                      error={errors.email}
+                    />
+                  </div>
+                  <FormField
+                    label="Organization"
+                    name="company"
+                    placeholder="Your company name"
+                    required
+                    value={values.company}
+                    onChange={handleChange}
+                    error={errors.company}
+                  />
 
-            <FormField
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              required
-              value={values.email}
-              onChange={handleChange}
-              error={errors.email}
-            />
+                  <FormField
+                    label="Primary Interest"
+                    name="service_interest"
+                    as="select"
+                    required
+                    value={values.service_interest}
+                    onChange={handleChange as any}
+                    error={errors.service_interest}
+                  >
+                    <option value="data_services">Data Systems & Pipelines</option>
+                    <option value="digital_products">Custom Web & Mobile Apps</option>
+                    <option value="creative">Strategic Visual Design</option>
+                    <option value="other">Other Technical Consulting</option>
+                  </FormField>
 
-            <FormField
-              label="Company"
-              name="company"
-              placeholder="Your company name"
-              required
-              value={values.company}
-              onChange={handleChange}
-              error={errors.company}
-            />
+                  <FormField
+                    label="Project Intent"
+                    name="message"
+                    as="textarea"
+                    placeholder="Describe the challenge you're looking to solve..."
+                    required
+                    value={values.message}
+                    onChange={handleChange}
+                    error={errors.message}
+                  />
 
-            <FormField
-              label="Service Interest"
-              name="service_interest"
-              as="select"
-              required
-              value={values.service_interest}
-              onChange={handleChange as any}
-              error={errors.service_interest}
-            >
-              <option value="data_services">Data Services</option>
-              <option value="advisory">Advisory</option>
-              <option value="capital">Capital</option>
-              <option value="other">Other</option>
-            </FormField>
+                  <div className="pt-4">
+                    <Button type="submit" disabled={submitting} className="w-full">
+                      {submitting ? 'Executing Request...' : 'Submit Intent'}
+                    </Button>
+                    {status === 'success' && (
+                      <p className="mt-4 text-wg-green font-mono text-sm">TRANSMISSION SUCCESSFUL. WE WILL RESPOND SHORTLY.</p>
+                    )}
+                    {status === 'error' && (
+                      <p className="mt-4 text-red-600 font-mono text-sm">TRANSMISSION ERROR. PLEASE RETRY.</p>
+                    )}
+                  </div>
+                </form>
+              </div>
 
-            <FormField
-              label="Message"
-              name="message"
-              as="textarea"
-              placeholder="Tell us a bit about your needs"
-              required
-              value={values.message}
-              onChange={handleChange}
-              error={errors.message}
-            />
-
-            <div className="flex items-center justify-between mt-6">
-              <Button type="submit" disabled={submitting}>
-                {submitting ? 'Sending…' : 'Send Message'}
-              </Button>
-              {status === 'success' && (
-                <span className="text-wg-green">Thanks! We’ll be in touch soon.</span>
-              )}
-              {status === 'error' && (
-                <span className="text-red-600">Something went wrong. Please try again.</span>
-              )}
+              <div className="space-y-12">
+                <div>
+                  <h3 className="text-xs font-mono text-wg-green uppercase tracking-widest font-bold mb-4">Email</h3>
+                  <p className="text-xl font-space">hello@welwitschiadata.com</p>
+                </div>
+                <div>
+                  <h3 className="text-xs font-mono text-wg-green uppercase tracking-widest font-bold mb-4">Location</h3>
+                  <p className="text-xl font-space text-brand-black/60 leading-relaxed">Remote-First • Operating out of Namibia</p>
+                </div>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </MainLayout>
+      </main>
+      <Footer />
+    </div>
   );
 }

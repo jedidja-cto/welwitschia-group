@@ -11,6 +11,14 @@ const config = {
         'wg-green': '#1A8452',
         'wg-orange': '#E67E22',
         'wg-dark': '#114C32',
+        'brand-red': '#1A8452',
+        'brand-black': '#111111',
+        'brand-gray': '#6b7280'
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        space: ['var(--font-space)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
       },
     },
   },

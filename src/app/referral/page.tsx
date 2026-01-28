@@ -16,12 +16,13 @@ export default function ReferralPage() {
 
         <div className="max-w-3xl mx-auto text-gray-700">
           <p className="text-lg mb-4">
-            Introduce us to a business that could benefit from our data, advisory, or capital services.
-            When they place their initial deposit, you’ll earn <span className="font-semibold">N$500–N$700</span>
-            or receive a <span className="font-semibold">50% discount</span> on your next project. Terms apply.
+            Introduce a business that can benefit from our data and digital services.
+            When they place the initial deposit, you’ll earn <span className="font-semibold">N$500–N$700</span>
+            or receive a <span className="font-semibold">50% discount</span> on your next project.
           </p>
           <p className="text-lg mb-6">
-            It’s a simple way to support SME growth while being rewarded for your network and insight.
+            It’s straightforward: share a warm intro, we run discovery, and if there’s a fit,
+            you get rewarded. Clean, transparent terms.
           </p>
           <div className="mt-8 text-center">
             <Link href="/contact">

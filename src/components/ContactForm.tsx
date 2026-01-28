@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
-import { submitContactForm } from '@/lib/supabaseContact';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
-    company: '',
-    message: ''
+    projectDescription: '',
+    budgetRange: ''
   });
   
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -23,15 +21,33 @@ export default function ContactForm() {
     setStatus('submitting');
     
     try {
-      await submitContactForm(formData);
-      setStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          projectDescription: formData.projectDescription,
+          budgetRange: formData.budgetRange,
+          timestamp: new Date().toISOString()
+        }),
       });
+
+      const result = await response.json();
+      
+      if (response.ok && result.ok) {
+        setStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          projectDescription: '',
+          budgetRange: ''
+        });
+      } else {
+        throw new Error(result.error || 'Failed to submit form');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       setStatus('error');
@@ -87,46 +103,38 @@ export default function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-          Phone
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
-          Company
-        </label>
-        <input
-          id="company"
-          name="company"
-          type="text"
-          value={formData.company}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          Message *
+        <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-1">
+          What are you trying to build? *
         </label>
         <textarea
-          id="message"
-          name="message"
+          id="projectDescription"
+          name="projectDescription"
           rows={4}
           required
-          value={formData.message}
+          value={formData.projectDescription}
           onChange={handleChange}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Describe your project or what you're looking to build..."
         />
+      </div>
+      
+      <div>
+        <label htmlFor="budgetRange" className="block text-sm font-medium text-gray-700 mb-1">
+          Budget Range
+        </label>
+        <select
+          id="budgetRange"
+          name="budgetRange"
+          value={formData.budgetRange}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        >
+          <option value="">Select budget range (optional)</option>
+          <option value="under-5k">Under $5,000</option>
+          <option value="5k-15k">$5,000 - $15,000</option>
+          <option value="15k-50k">$15,000 - $50,000</option>
+          <option value="50k-plus">$50,000+</option>
+        </select>
       </div>
       
       <div className="pt-2">

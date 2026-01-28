@@ -14,63 +14,214 @@
   html {
     @apply scroll-smooth;
   }
-  
+
   body {
-    @apply text-gray-800 bg-white font-sans;
+    @apply text-brand-black bg-white font-sans selection:bg-wg-green/30;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-medium text-wg-dark;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-space font-medium text-brand-black tracking-tight;
   }
-  
+
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl leading-tight;
+    @apply text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-6;
   }
-  
+
   h2 {
-    @apply text-3xl md:text-4xl leading-tight;
+    @apply text-4xl md:text-5xl leading-tight mb-4;
   }
-  
+
   h3 {
-    @apply text-2xl md:text-3xl leading-tight;
+    @apply text-2xl md:text-3xl leading-tight mb-2;
   }
-  
+
   p {
-    @apply text-base md:text-lg leading-relaxed;
+    @apply text-lg md:text-xl leading-relaxed text-brand-black/70 mb-6;
   }
 }
 
 @layer components {
-  /* Links default to brand color with subtle hover */
-  a {
-    @apply text-wg-green hover:text-wg-dark transition-colors duration-200 ease-out;
-  }
-  
-  /* Section styling */
-  .section {
-    @apply py-12 md:py-24;
-  }
-  
-  /* Container with consistent max-width */
-  .content-container {
-    @apply max-w-3xl mx-auto px-4 sm:px-6;
-  }
-  
-  /* Button styles */
+
+  /* Modern Button System */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium transition-all duration-200 ease-out;
+    @apply inline-flex items-center justify-center px-8 py-4 rounded-full font-medium transition-all duration-300 ease-out active:scale-95;
   }
-  
+
   .btn-primary {
-    @apply bg-wg-green text-white hover:bg-wg-dark hover:shadow-md;
+    @apply bg-wg-green text-white hover:bg-wg-dark hover:shadow-lg hover:shadow-wg-green/20;
   }
-  
+
   .btn-secondary {
-    @apply border-2 border-wg-green text-wg-green hover:bg-wg-green/10 hover:shadow-sm;
+    @apply border-2 border-brand-black text-brand-black hover:bg-brand-black hover:text-white;
   }
-  
-  /* Card styling */
-  .card {
-    @apply bg-white rounded-2xl shadow-sm p-6 transition-all duration-200 ease-out hover:shadow-md hover:scale-[1.02];
+
+  .btn-outline {
+    @apply border-2 border-wg-green text-wg-green hover:bg-wg-green hover:text-white;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10;
+  }
+
+  /* Premium Card */
+  .premium-card {
+    @apply relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 transition-all duration-500 hover:border-wg-green/30 hover:shadow-2xl hover:shadow-wg-green/5;
+  }
+
+  /* Animated Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-wg-green via-wg-orange to-wg-dark animate-gradient-x bg-[length:200%_200%];
+  }
+
+  /* Micro-interactions */
+  .hover-trigger .hover-target {
+    @apply transition-transform duration-500 ease-out;
+  }
+
+  .hover-trigger:hover .hover-target {
+    @apply translate-x-2;
+  }
+
+  /* Layout Utilities */
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-6 sm:px-8;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pricing page specific mobile optimizations */
+.pricing-card-list li {
+  @apply flex items-start;
+}
+
+.pricing-card-list svg {
+  @apply flex-shrink-0;
+}
+
+/* Mobile-first responsive pricing calculator */
+@media (max-width: 768px) {
+  .pricing-calculator-container {
+    @apply px-2;
+  }
+
+  .pricing-package-grid {
+    @apply gap-4;
+  }
+
+  .pricing-info-grid {
+    @apply gap-6;
+  }
+
+  /* Enhanced mobile typography */
+  .pricing-calculator-container h2 {
+    @apply text-xl;
+  }
+
+  .pricing-calculator-container h3 {
+    @apply text-lg;
+  }
+
+  /* Mobile-optimized buttons */
+  .pricing-calculator-container .btn {
+    @apply w-full sm:w-auto;
+  }
+
+  /* Mobile card spacing */
+  .pricing-calculator-container .card {
+    @apply p-4;
+  }
+
+  /* Mobile step indicator */
+  .progress-step {
+    @apply w-2 h-2;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .pricing-calculator-container {
+    @apply px-6;
+  }
+
+  .pricing-package-grid {
+    @apply gap-6;
+  }
+}
+
+/* Enhanced touch targets for mobile */
+@media (max-width: 768px) {
+  .pricing-calculator-container button {
+    @apply min-h-[44px] text-base;
+  }
+
+  .pricing-calculator-container input,
+  .pricing-calculator-container select {
+    @apply min-h-[44px] text-base;
+  }
+
+  /* Mobile-friendly checkboxes and radio buttons */
+  .pricing-calculator-container input[type="checkbox"],
+  .pricing-calculator-container input[type="radio"] {
+    @apply w-5 h-5;
   }
 }

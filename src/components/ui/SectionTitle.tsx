@@ -24,10 +24,10 @@ export const SectionTitle = ({
   return (
     <div className={`mb-12 ${alignments[align]} ${className}`}>
       {withAccent && (
-        <div className={`h-1 w-16 bg-wg-green rounded mb-4 ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}`}></div>
+        <div className={`h-1 w-16 bg-brand-red rounded mb-4 ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}`}></div>
       )}
-      <h2 className="text-3xl md:text-4xl font-medium text-wg-dark mb-4 leading-tight">{title}</h2>
-      {subtitle && <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">{subtitle}</p>}
+      <h2 className="text-3xl md:text-4xl font-medium text-brand-black mb-4 leading-tight">{title}</h2>
+      {subtitle && <p className="text-lg md:text-xl text-brand-black/70 max-w-3xl mx-auto">{subtitle}</p>}
     </div>
   );
 };
